@@ -1,0 +1,15 @@
+{
+    "name": "we1337/web-service-online-bank-php-my-sql",
+    "autoload": {
+        "psr-4": {
+            "We1337\\WebServiceOnlineBankPhpMySql\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "We1337",
+            "email": "weuser149@gmail.com"
+        }
+    ],
+    "require": {}
+}
