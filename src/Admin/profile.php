@@ -8,6 +8,10 @@ $stmt->execute();
 
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+if(isset($_SESSION["message"]["admin_data_updated"])) {
+    echo '<div class="alert alert-warning" role="alert"><?php echo $_SESSION["message"][""]; ?></div>';
+}
+
 ?>
 
 <div class="container mt-5" style="padding-bottom: 10rem;">
@@ -52,7 +56,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="form-group" style="padding-top: 1rem;">
             <?php
             if(isset($_SESSION["message"]["lastname"])) {
-                echo '<div class="alert" alert-warning" role="alert">Lastname</div>';
+                echo '<div class="alert alert-warning" role="alert">Lastname</div>';
             }
             ?>
             <lable for="lastname">Last name</lable> 
@@ -66,7 +70,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
             ?>
             <label for="lastname">Old Password</label>
-            <input type="lastname" class="form-control" id="oldpassword" name="oldpassword" placeholder="Enter old password">
+            <input type="password" class="form-control" id="oldpassword" name="oldpassword" placeholder="Enter old password">
         </div>
 
         <!-- Password Input -->
@@ -76,7 +80,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 echo '<div class="alert alert-warning" role="alert">Password</div>';
             }
             ?>
-            <label for="password">Password</label>
+            <label for="password">New Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password">
         </div>
 
