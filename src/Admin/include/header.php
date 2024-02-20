@@ -64,7 +64,7 @@ if (isset($_SESSION['admin_session'])) {
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="profile.php">Profile</a>
+                    <a class="nav-link active" aria-current="page" href="/src/Admin/profile.php">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Settings</a>
