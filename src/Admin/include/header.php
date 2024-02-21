@@ -58,7 +58,7 @@ if (isset($_SESSION['admin_session'])) {
                         Server
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Backup server</a></li>
+                        <li><a class="dropdown-item" href="backup.php">Backup server</a></li>
                         <li><a class="dropdown-item" href="#">Shell</a></li>
                         <li><a class="dropdown-item" href="#">Email</a></li>
                     </ul>
@@ -88,7 +88,7 @@ if (isset($_SESSION['message'])) {
     echo $_SESSION['message'];
     echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
     echo "</div>";
-    //unset($_SESSION['message']);
+    unset($_SESSION['message']);
 }
 
 ?>
