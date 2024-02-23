@@ -20,11 +20,11 @@ if ($result) {
         $_SESSION['admin_session'] = true;
 
         // Information about Admin
-        $_SESSION['admin_id'] = $result['AdminID'];
-        $_SESSION['admin_username'] = $result['Username'];
-        $_SESSION['admin_firstname'] = $result['FirstName'];
-        $_SESSION['admin_lastname'] = $result['LastName'];
-        $_SESSION['admin_email'] = $result['Email'];
+        $_SESSION['admin']['id'] = $result['AdminID'];
+        $_SESSION['admin']['username'] = $result['Username'];
+        $_SESSION['admin']['firstname'] = $result['FirstName'];
+        $_SESSION['admin']['lastname'] = $result['LastName'];
+        $_SESSION['admin']['email'] = $result['Email'];
 
         // Message log
         $_SESSION['message'] = "Welcome: " . $username;
