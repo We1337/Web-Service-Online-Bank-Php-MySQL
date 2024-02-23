@@ -1,3 +1,5 @@
+// TODO: Admin log time track
+
 CREATE TABLE `Admins` (
     `AdminID` INT PRIMARY KEY AUTO_INCREMENT,
     `Username` VARCHAR(255) UNIQUE NOT NULL,
