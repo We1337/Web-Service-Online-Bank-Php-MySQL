@@ -1,12 +1,12 @@
-// TODO: Admin log time track
-
 CREATE TABLE `Admins` (
     `AdminID` INT PRIMARY KEY AUTO_INCREMENT,
     `Username` VARCHAR(255) UNIQUE NOT NULL,
     `Password` VARCHAR(255) NOT NULL,
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
-    `Email` VARCHAR(100) UNIQUE NOT NULL
+    `Email` VARCHAR(100) UNIQUE NOT NULL,
+    `LoginTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `LogoutTime` TIMESTAMP DEFAULT NULL
 );
 
 -- Insert fake data
