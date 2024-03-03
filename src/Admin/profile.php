@@ -1,7 +1,7 @@
 <?php
 include('include/header.php');
 
-require("../Modules/config.php");
+require_once("../Modules/config.php");
 
 $stmt = $conn->prepare('SELECT * FROM `Admins`');
 $stmt->execute();
@@ -9,7 +9,7 @@ $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if(isset($_SESSION["message"]["admin_data_updated"])) {
-    echo '<div class="alert alert-warning" role="alert"><?php echo $_SESSION["message"][""]; ?></div>';
+    echo '<div class="alert alert-warning" role="alert"><?php echo $_SESSION["message"]; ?></div>';
 }
 
 ?>
@@ -17,7 +17,7 @@ if(isset($_SESSION["message"]["admin_data_updated"])) {
 <div class="container mt-5" style="padding-bottom: 10rem;">
     <h2>Edit Profile</h2>
     
-    <form action="module/profile_update.php" method="post">
+    <form action="profile_update.php" method="post">
         <?php 
         foreach($result as $row) {
         ?>
