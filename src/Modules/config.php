@@ -7,6 +7,6 @@ try {
 
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    echo "Connection failed: ". $e->getMessage();
+    echo "<div class='alert alert-info' role='alert'>Connection failed: " . $e->getMessage() . "</div>";
 }
 // $conn = null; connection closed
