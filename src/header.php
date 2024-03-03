@@ -42,7 +42,7 @@
                             <a class="nav-link" href="#">Link</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Admin/index.php">Admin</a>
+                            <a class="nav-link" href="Admin/login.php">Admin</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="Support/index.php">Support</a>
