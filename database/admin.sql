@@ -5,8 +5,8 @@ CREATE TABLE `Admins` (
     `FirstName` VARCHAR(50) NOT NULL,
     `LastName` VARCHAR(50) NOT NULL,
     `Email` VARCHAR(100) UNIQUE NOT NULL,
-    `LoginTime` TIMESTAMP DEFAULT NULL,
-    `LogoutTime` TIMESTAMP DEFAULT NULL 
+    `LoginTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `LogoutTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 );
 
 -- Insert fake data
