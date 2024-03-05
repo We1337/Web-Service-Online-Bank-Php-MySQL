@@ -1,20 +1,20 @@
 <?php
 
-require_once("../../Modules/config.php");
-
 session_start();
+
+require_once("../../Modules/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $check_every_error = false;
 
-    $username = $_POST["username"];
-    $email = $_POST["email"];
-    $firstname = $_POST["firstname"];
-    $lastname = $_POST["lastname"];
-    $oldpassword = $_POST["oldpassword"];
-    $password = $_POST["password"];
-    $confirmpassword = $_POST["confirmpassword"];
+    $username = isset($_POST["username"]) ? htmlspecialchars($_POST['username']) : '';
+    $email = isset($_POST["email"]) ? htmlspecialchars($_POST['email']) : '';
+    $firstname = isset($_POST["firstname"]) ? htmlspecialchars($_POST['firstname']) : '';
+    $lastname = isset($_POST["lastname"]) ? htmlspecialchars($_POST['lastname']) : '';
+    $oldpassword = isset($_POST["oldpassword"]) ? htmlspecialchars($_POST['$oldpassword']) : '';
+    $password = isset($_POST["password"]) ? htmlspecialchars($_POST['$password']) : '';
+    $confirmpassword = isset($_POST["confirmpassword"]) ? htmlspecialchars($_POST['$confirmpassword']) : '';
 
     // Reset session messages
     $_SESSION["message"] = array();
