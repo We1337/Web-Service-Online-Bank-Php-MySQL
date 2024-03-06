@@ -8,81 +8,27 @@ $userid = $_GET['id'];
 $stmt = $conn->prepare("SELECT * FROM `Customers` WHERE `CustomerID` = :userid");
 $stmt->bindValue(":userid", $userid, PDO::PARAM_INT);
 $stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<div class="container mt-5" style="padding-bottom: 10rem;">
-    <h2>Edit Profile</h2>
-    
-    <form action="customer_profile_update.php" method="POST">
-        <?php 
-        foreach($result as $row) {
-        ?>
-        <input type="hidden" name="customerid" value="<?php echo $userid ?>">
-
-        <!-- Username Input -->
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="firstname">First name</label>
-            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name" value="<?php echo $row['FirstName']; ?>">
+<div style="padding: 2rem;">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"><?php echo $result['FirstName']; ?> <?php echo $result['LastName']; ?></h4>
+          <p class="card-text">Email: <?= $result['Email']; ?></p>
+          <p class="card-text">Phone: <?= $result['PhoneNumber']; ?></p>
+          <p class="card-text">Password: <?= $result['Password']; ?></p>
+          <p class="card-text">Address: <?= $result['Address']; ?></p>
+          <p class="card-text">City: <?= $result['City']; ?></p>
+          <p class="card-text">Region: <?= $result['State']; ?></p>
+          <p class="card-text">Zip code: <?= $result['ZipCode']; ?></p>
+          <p class="card-text">Country <?= $result['Country']; ?></p>
+          <p class="card-text"><small class="text-muted">Profile created at: <?php echo $result['RegistrationDate']; ?></small></p>
         </div>
+      </div>
+    </div>
 
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="lastname">Last name</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last name" value="<?php echo $row['LastName']; ?>">
-        </div>
 
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $row['Email'] ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="phone">Phone number</label>
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone number" value="<?php echo $row['PhoneNumber']; ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="Address" value="<?php echo $row['Address']; ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="city">City</label>
-            <input type="text" class="form-control" id="city" name="city" placeholder="City" value="<?php echo $row['City']; ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="region">Region</label>
-            <input type="text" class="form-control" id="region" name="region" placeholder="Region" value="<?php echo $row['State']; ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="zipcode">Zip Code</label>
-            <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip code" value="<?php echo $row['ZipCode']; ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="country">Country</label>
-            <input type="text" class="form-control" id="country" name="country" placeholder="Country" value="<?php echo $row['Country']; ?>">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="oldpassword">Current password</label>
-            <input type="text" class="form-control" id="currentpassword" name="currentpassword" placeholder="Current password" value="<?php echo $row['Password']; ?>">
-        </div>
-
-        <!-- Update Button -->
-        <div style="padding-top: 1rem;">
-            <button type="submit" class="btn btn-primary">Update Profile</button>
-            <a href="index.php" class="btn btn-primary">Exit</a>
-        </div>
-
-        <?php
-        }
-        ?>
-    </form>
-</div>
-
-<?php 
+<?php
 include("include/footer.php");
 ?>
