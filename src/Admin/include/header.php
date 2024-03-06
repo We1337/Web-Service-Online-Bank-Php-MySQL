@@ -5,11 +5,10 @@ session_start();
 if (isset($_SESSION['admin']['session']) && $_SESSION['admin']['session'] === true) {
     $username = $_SESSION['admin']['username'];
 } else {
-    $_SESSION['message'] = "Please login";
+    $_SESSION['messages'][] = ['result' => "Please login!"];
     header("Location: login.php");
     exit();
 }
-
 
 ?>
 
@@ -84,12 +83,16 @@ if (isset($_SESSION['admin']['session']) && $_SESSION['admin']['session'] === tr
 
 <?php
 
-if (isset($_SESSION['message'])) {
-    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>";
-    echo $_SESSION['message'];
-    echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
-    echo "</div>";
-    unset($_SESSION['message']);
+if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])) {
+    foreach ($_SESSION['messages'] as $message) {
+        $alertClass = ($message['result'] === 'Success') ? 'alert-success' : 'alert-danger';
+
+        echo "<div class='alert $alertClass alert-dismissible fade show' role='alert'>";
+        echo $message['result'];
+        echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+        echo "</div>";
+    }
+    unset($_SESSION['messages']);
 }
 
 ?>
