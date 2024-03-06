@@ -68,22 +68,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="form-group" style="padding-top: 1rem;">
             <label for="oldpassword">Current password</label>
-            <input type="password" class="form-control" id="currentpassword" name="currentpassword" placeholder="Current password">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="newpassword">New password</label>
-            <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New password">
-        </div>
-
-        <div class="form-group" style="padding-top: 1rem;">
-            <label for="confirmpassword">Confirm password</label>
-            <input type="password" class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm password">
+            <input type="text" class="form-control" id="currentpassword" name="currentpassword" placeholder="Current password" value="<?php echo $row['Password']; ?>">
         </div>
 
         <!-- Update Button -->
         <div style="padding-top: 1rem;">
             <button type="submit" class="btn btn-primary">Update Profile</button>
+            <a href="index.php" class="btn btn-primary">Exit</a>
         </div>
 
         <?php
