@@ -35,7 +35,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </ul>
 </div>
 
-<div style="padding-left: 2rem; padding-right: 2rem; padding-top: 1rem;">
+<div style="padding-left: 2rem; padding-right: 2rem; padding-top: 1rem; padding-bottom: 7rem;">
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
             <tr>
