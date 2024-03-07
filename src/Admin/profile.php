@@ -5,7 +5,6 @@ require_once("../Modules/config.php");
 
 $stmt = $conn->prepare('SELECT * FROM `Admins`');
 $stmt->execute();
-
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if(isset($_SESSION["message"]["admin_data_updated"])) {
