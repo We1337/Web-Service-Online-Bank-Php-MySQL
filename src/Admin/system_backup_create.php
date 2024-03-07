@@ -2,7 +2,7 @@
 include("include/header.php");
 ?>
 
-<form action="module/backup.php" method="post">
+<form action="system_backup.php" method="post">
     <div style="padding: 2rem;">
         <div class="mb-3">
             <label for="input" class="form-label">Backup title</label>

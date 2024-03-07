@@ -8,7 +8,7 @@ $stmt = $conn->query($query);
 ?>
 
 <div style="padding-left: 2rem; padding-top: 1rem;">
-    <a class="btn btn-primary" href="backup_create.php" role="button">Create backup</a>
+    <a class="btn btn-primary" href="system_backup_create.php" role="button">Create backup</a>
 </div>
 
 <div class="list-group" style="padding-top: 2rem; padding-left: 2rem; padding-right: 2rem;">

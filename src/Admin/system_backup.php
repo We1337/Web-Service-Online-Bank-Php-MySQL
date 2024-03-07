@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../Modules/config.php");
+require_once("../Modules/config.php");
 
 session_start();
 
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     try {
         $username = 'root';
-        $password = ''; // Replace with your actual database password
+        $password = ' '; // Replace with your actual database password
 
         $date = date("Y-m-d-G-i-s");
         $filename = str_replace([' ', ':'], '_', $title) . "_" . $date . ".sql";
@@ -47,11 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->execute();
 
         if ($stmt->rowCount() > 0 && $returnValue === 0) {
-            $_SESSION['message']['backup_completed'] = 'success';
-            header("Location: ../index.php");
+            $_SESSION['messages'][] = ['result' => 'success'];
+            header("Location: system_backup_display.php");
         } else {
-            $_SESSION['message']['backup_completed'] = 'failed';
-            header("Location: ../index.php");
+            $_SESSION['messages'][] = ['result' => 'failed'];
+            header("Location: system_backup_display.php");
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
@@ -59,8 +59,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $conn = null;
     }
 }
-?>
-
-
-
-// TODO: connect to ftp server and send data to backup folder
