@@ -61,7 +61,7 @@ include("include/header.php");
         <!-- Update Button -->
         <div style="padding-top: 1rem;">
             <button type="submit" class="btn btn-primary">Update Profile</button>
-            <a href="index.php" class="btn btn-primary">Exit</a>
+            <a href="dashboard.php" class="btn btn-primary">Exit</a>
         </div>
     </form>
 
