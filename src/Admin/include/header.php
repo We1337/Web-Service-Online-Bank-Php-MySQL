@@ -62,8 +62,8 @@ if (isset($_SESSION['admin']['session']) && $_SESSION['admin']['session'] === tr
                         Server
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="backup.php">Backup server</a></li>
-                        <li><a class="dropdown-item" href="#">Shell</a></li>
+                        <li><a class="dropdown-item" href="system_backup_display.php">Backup server</a></li>
+                        <li><a class="dropdown-item" href="system_shell.php">Shell</a></li>
                         <li><a class="dropdown-item" href="#">Email</a></li>
                     </ul>
                 </li>
