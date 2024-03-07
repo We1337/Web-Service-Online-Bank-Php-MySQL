@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(":customercountry", $country, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $_SESSION['messages'][] = ['result' => "Success changed"];
+            $_SESSION['messages'][] = ['result' => "Success"];
             header("Location: customer_profile.php?id=" . $customerid);
             exit;
         } else {
