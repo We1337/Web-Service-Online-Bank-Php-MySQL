@@ -16,7 +16,7 @@ if(isset($_SESSION["message"]["admin_data_updated"])) {
 <div class="container mt-5" style="padding-bottom: 10rem;">
     <h2>Edit Profile</h2>
     
-    <form action="profile_update.php" method="post">
+    <form action="admin_profile_update.php" method="post">
         <?php 
         foreach($result as $row) {
         ?>
