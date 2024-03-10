@@ -2,19 +2,19 @@
 
 session_start();
 
-require_once("../../Modules/config.php");
+require_once("../Modules/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $check_every_error = false;
+    $check_every_error = array();
 
     $username = isset($_POST["username"]) ? htmlspecialchars($_POST['username']) : '';
     $email = isset($_POST["email"]) ? htmlspecialchars($_POST['email']) : '';
     $firstname = isset($_POST["firstname"]) ? htmlspecialchars($_POST['firstname']) : '';
     $lastname = isset($_POST["lastname"]) ? htmlspecialchars($_POST['lastname']) : '';
-    $oldpassword = isset($_POST["oldpassword"]) ? htmlspecialchars($_POST['$oldpassword']) : '';
-    $password = isset($_POST["password"]) ? htmlspecialchars($_POST['$password']) : '';
-    $confirmpassword = isset($_POST["confirmpassword"]) ? htmlspecialchars($_POST['$confirmpassword']) : '';
+    $oldpassword = isset($_POST["oldpassword"]) ? htmlspecialchars($_POST['oldpassword']) : '';
+    $password = isset($_POST["password"]) ? htmlspecialchars($_POST['password']) : '';
+    $confirmpassword = isset($_POST["confirmpassword"]) ? htmlspecialchars($_POST['confirmpassword']) : '';
 
     // Reset session messages
     $_SESSION["message"] = array();
@@ -22,54 +22,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check for empty fields
     if (empty($username)) {
         $_SESSION["message"]["username"] = "Please enter a username";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     if (empty($email)) {
         $_SESSION["message"]["email"] = "Please enter an email";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     if (empty($firstname)) {
         $_SESSION["message"]["firstname"] = "Please enter a first name";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     if (empty($lastname)) {
         $_SESSION["message"]["lastname"] = "Please enter a last name";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     if (empty($oldpassword)) {
         $_SESSION["message"]["oldpassword"] = "Please enter an old password";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     if (empty($password)) {
         $_SESSION["message"]["password"] = "Please enter a new password";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     if (empty($confirmpassword)) {
         $_SESSION["message"]["confirmpassword"] = "Please confirm the new password";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     // Check if passwords match
     if ($password != $confirmpassword) {
         $_SESSION["message"]["password_is_not_same"] = "The passwords do not match";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
     // Check password length
     if (strlen($password) < 8) {
         $_SESSION["message"]["password_length"] = "The password length must be at least 8 characters";
-        $check_every_error = true;
+        array($check_every_error, true);
     }
 
+    $allTrue = array_reduce($myArray, function($carry, $item){
+        return $carry && $item;
+    }, true);
+
     // If there are errors, redirect to profile.php
-    if ($check_every_error) {
-        header("Location: ../profile.php");
+    if ($allTrue) {
+        $_SESSION["messages"][] = ["result" => "failed"];
+        header("Location: admin_profile.php");
         exit;
     }
 
@@ -112,22 +117,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['admin']['lastname'] = $lastname;
                     $_SESSION['admin']['email'] = $email;
 
-                    header("Location: ../index.php");
+                    header("Location: admin_index.php");
                     exit;
                 } else {
-                    $_SESSION['message']['admin_data_updated'] = 'failed';
-                    header("Location: ../profile.php");
+                    $_SESSION['messages'][] = ["result" => "failed"];
+                    header("Location: admin_profile.php");
                     exit;
                 }
             } else {
                 $_SESSION['message']['password_verification'] = "Password verification failed";
-                header("Location: ../profile.php");
+                header("Location: admin_profile.php");
                 exit;
             }
         }
     } catch (PDOException $e) {
-        $_SESSION['message']['error'] = "Error: " . $e->getMessage();
-        header("Location: ../index.php");
+        $_SESSION["messages"][] = ["result" => "Error: " . $e->getMessage()];
+        header("Location: dashboard.php");
         exit;
     } finally {
         $conn = null;
