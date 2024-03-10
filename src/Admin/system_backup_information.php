@@ -1,12 +1,12 @@
 <?php
-include("include/header.php");
 
+include("include/header.php");
 require_once("../Modules/config.php");
 
-$id = $_GET['id'];
+$id = isset($_GET['id']) ? htmlspecialchars($_GET['id']) : '';
 
 $stmt = $conn->prepare("SELECT * FROM `Backup` WHERE `BackupID` = :id");
-$stmt->bindParam('id', $id, PDO::PARAM_INT);
+$stmt->bindParam(':id', $id, PDO::PARAM_INT);
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -24,8 +24,8 @@ foreach ($result as $row) {
             <div class="card-body" style="margin: 3rem;">
                 <h5 class="card-title"><?php echo $row['BackupName']; ?></h5>
                 <p class="card-text"><?php echo $row['BackupDescription']; ?></p>
-                <a href="backup_download.php?id=<?php echo $id; ?>" class="btn btn-primary">Download</a>
-                <a href="backup_delete.php?id=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
+                <a href="system_backup_download.php?path=<?php echo $row['BackupLocation']; ?>" class="btn btn-primary">Download</a>
+                <a href="system_backup_delete.php?id=<?php echo $id; ?>" class="btn btn-danger">Delete</a>
             </div>
             <div class="card-footer text-body-secondary">
                 <?php echo $row['BackupDate']; ?>

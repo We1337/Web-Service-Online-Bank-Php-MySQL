@@ -2,7 +2,12 @@
 
 session_start();
 
+require_once("../Modules/db_config.php");
 require_once("../Modules/config.php");
+
+
+$username = DB_USER;
+$password = DB_PASSWORD;
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     
@@ -33,8 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            $username = 'We1337';
-            $password = 'password'; // Replace with your actual database password
 
             $isWindows = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
 
@@ -49,12 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             exec($command, $output, $returnValue);
 
             if ($returnValue === 0) {
-                $_SESSION['messages'][] = ['result' => 'success'];
+                $_SESSION['messages'][] = ['result' => 'Success'];
             } else {
-                $_SESSION['messages'][] = ['result' => 'failed'];
+                $_SESSION['messages'][] = ['result' => 'Failed'];
             }
         } else {
-            $_SESSION['messages'][] = ['result' => 'failed'];
+            $_SESSION['messages'][] = ['result' => 'Failed'];
         }
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();

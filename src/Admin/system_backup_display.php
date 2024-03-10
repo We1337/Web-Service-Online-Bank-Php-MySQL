@@ -1,6 +1,6 @@
 <?php
-include("include/header.php");
 
+include("include/header.php");
 require_once("../Modules/config.php");
 
 $query = "SELECT * FROM `Backup`";
@@ -15,7 +15,7 @@ $stmt = $conn->query($query);
     <?php
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
-        <a href="backup_information.php?id=<?php echo $row['BackupID']; ?>" class="list-group-item list-group-item-action active" style="margin: 0.2rem;" aria-current="true">
+        <a href="system_backup_information.php?id=<?php echo $row['BackupID']; ?>" class="list-group-item list-group-item-action" style="margin: 0.2rem;" aria-current="true">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1"><?php echo $row['BackupName']; ?></h5>
                 <small><?php echo $row['BackupDate']; ?></small>
