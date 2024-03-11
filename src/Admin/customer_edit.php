@@ -12,7 +12,7 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <div class="container mt-5" style="padding-bottom: 10rem;">
-    <h2>Edit Profile</h2>
+    <h2>Edit customer</h2>
     
     <form action="customer_edit_process.php" method="POST">
         <?php 
@@ -73,8 +73,8 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <!-- Update Button -->
         <div style="padding-top: 1rem;">
-            <button type="submit" class="btn btn-primary">Update Profile</button>
-            <a href="index.php" class="btn btn-primary">Exit</a>
+            <button type="submit" class="btn btn-outline-primary">Update Profile</button>
+            <a href="dashboard.php" class="btn btn-outline-primary">Exit</a>
         </div>
 
         <?php

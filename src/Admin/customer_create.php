@@ -2,12 +2,11 @@
 include("include/header.php");
 ?>
 
-<div class="container mt-5" style="padding-bottom: 10rem;">
-    <h2>Edit Profile</h2>
+<div class="container mt-5" style="padding-bottom: 8rem;">
+    <h2>Create customer</h2>
     
     <form action="customer_create_process.php" method="POST">
 
-        <!-- Username Input -->
         <div class="form-group" style="padding-top: 1rem;">
             <label for="firstname">First name</label>
             <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name">
@@ -60,8 +59,8 @@ include("include/header.php");
 
         <!-- Update Button -->
         <div style="padding-top: 1rem;">
-            <button type="submit" class="btn btn-primary">Update Profile</button>
-            <a href="dashboard.php" class="btn btn-primary">Exit</a>
+            <button type="submit" class="btn btn-outline-primary">Update Profile</button>
+            <a href="dashboard.php" class="btn btn-outline-primary">Exit</a>
         </div>
     </form>
 
