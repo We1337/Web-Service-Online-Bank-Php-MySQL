@@ -20,8 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
 
-
-
         $stmt = $conn->prepare("INSERT INTO Customers (`FirstName`, `LastName`, `Email`, `PhoneNumber`, `Password`, `Address`, `City`, `State`, `ZipCode`, `Country`, `RegistrationDate`
         ) VALUES (
             :customerfirstname, 
@@ -66,7 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: customer_create.php");
             exit;
         }
-
 
     } catch (PDOException $e) {
         $_SESSION['messages'][] = ['result' => "Error: {$e->getMessage()}"];
