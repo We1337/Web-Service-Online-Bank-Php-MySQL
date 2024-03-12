@@ -33,49 +33,37 @@ CREATE TABLE `Transfer` (
     FOREIGN KEY (`RecipientID`) REFERENCES `Customers`(`CustomerID`) ON DELETE CASCADE
 );
 
--- Fake data for Customers table
-INSERT INTO `Customers` (`FirstName`, `LastName`, `Email`, `PhoneNumber`, `Password`, `Address`, `City`, `State`, `ZipCode`, `Country`, `RegistrationDate`)
-VALUES
-    ('John', 'Doe', 'john.doe@email.com', '123-456-7890', 'password123', '123 Main St', 'Anytown', 'CA', '12345', 'USA', '2022-01-01'),
-    ('Jane', 'Smith', 'jane.smith@email.com', '987-654-3210', 'securepass', '456 Oak St', 'Another City', 'NY', '54321', 'USA', '2022-02-15'),
-    ('Bob', 'Johnson', 'bob.johnson@email.com', '555-123-4567', 'pass123', '789 Pine St', 'Somewhere', 'TX', '67890', 'USA', '2022-03-20'),
-    ('Alice', 'Johnson', 'alice.johnson@email.com', '111-222-3333', 'pass123', '456 Oak St', 'Cityville', 'CA', '54321', 'USA', '2022-04-10'),
-    ('Charlie', 'Davis', 'charlie.davis@email.com', '444-555-6666', 'securepass', '789 Pine St', 'Townsville', 'TX', '98765', 'USA', '2022-05-15'),
-    ('John', 'Doe', 'john.doe@email.com', '123-456-7890', 'password123', '123 Main St', 'Anytown', 'CA', '12345', 'USA', '2022-01-01'),
-    ('Jane', 'Smith', 'jane.smith@email.com', '987-654-3210', 'securepass', '456 Oak St', 'Another City', 'NY', '54321', 'USA', '2022-02-15'),
-    ('Bob', 'Johnson', 'bob.johnson@email.com', '555-123-4567', 'pass123', '789 Pine St', 'Somewhere', 'TX', '67890', 'USA', '2022-03-20'),
-    ('Alice', 'Johnson', 'alice.johnson@email.com', '111-222-3333', 'pass123', '456 Oak St', 'Cityville', 'CA', '54321', 'USA', '2022-04-10'),
-    ('Charlie', 'Davis', 'charlie.davis@email.com', '444-555-6666', 'securepass', '789 Pine St', 'Townsville', 'TX', '98765', 'USA', '2022-05-15');
+CREATE TABLE `CreditCard` (
+    `CreditCardID` INT PRIMARY KEY AUTO_INCREMENT,
+    `CustomerID` INT NOT NULL,
+    `CardNumber` VARCHAR(20) NOT NULL,
+    `CardHolderName` VARCHAR(100) NOT NULL,
+    `ExpirationDate` DATE NOT NULL,
+    `CVV` VARCHAR(4) NOT NULL,
+    `CreationDate` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (`CustomerID`) REFERENCES `Customers`(`CustomerID`) ON DELETE CASCADE
+);
 
-
--- Fake data for Deposit table
-INSERT INTO `Deposit` (`CustomerID`, `Amount`)
+-- Inserting more fake data into Customers table
+INSERT INTO Customers (FirstName, LastName, Email, PhoneNumber, Password, Address, City, State, ZipCode, Country, RegistrationDate)
 VALUES
-    (1, 1000.50),
-    (2, 500.25),
-    (3, 750.75),
-    (4, 1200.75),
-    (5, 800.50),
-    (6, 1000.50),
-    (7, 500.25),
-    (8, 750.75),
-    (9, 1200.75),
-    (10, 800.50);
+    ('Alice', 'Johnson', 'alice.johnson@email.com', '111-222-3333', 'pass123', '789 Maple St', 'Villageton', 'Stateland', '67890', 'Countryland', '2022-03-01'),
+    ('Bob', 'Miller', 'bob.miller@email.com', '555-444-3333', 'secret123', '456 Pine St', 'Cityburg', 'Stateland', '45678', 'Countryland', '2022-04-01');
 
--- Fake data for Transfer table
-INSERT INTO `Transfer` (`CustomerID`, `RecipientID`, `RecipientName`, `PhoneNumber`, `Amount`)
+-- Inserting more fake data into Deposit table
+INSERT INTO Deposit (CustomerID, Amount)
 VALUES
-    (1, 2, 'Jane Smith', '987-654-3210', 200.00),
-    (2, 3, 'Bob Johnson', '555-123-4567', 150.50),
-    (3, 1, 'John Doe', '123-456-7890', 300.25),
-    (4, 1, 'John Doe', '123-456-7890', 300.00),
-    (5, 2, 'Jane Smith', '987-654-3210', 150.25),
-    (1, 4, 'Alice Johnson', '111-222-3333', 200.50),
-    (2, 5, 'Charlie Davis', '444-555-6666', 100.75),
-    (6, 1, 'Jane Smith', '987-654-3210', 200.00),
-    (2, 7, 'Bob Johnson', '555-123-4567', 150.50),
-    (3, 1, 'John Doe', '123-456-7890', 300.25),
-    (10, 9, 'John Doe', '123-456-7890', 300.00),
-    (5, 2, 'Jane Smith', '987-654-3210', 150.25),
-    (9, 8, 'Alice Johnson', '111-222-3333', 200.50),
-    (2, 7, 'Charlie Davis', '444-555-6666', 100.75);
+    (3, 1200.00),
+    (4, 800.75);
+
+-- Inserting more fake data into Transfer table
+INSERT INTO Transfer (CustomerID, RecipientID, RecipientName, PhoneNumber, Amount)
+VALUES
+    (3, 4, 'Bob Miller', '555-444-3333', 300.00),
+    (4, 3, 'Alice Johnson', '111-222-3333', 150.00);
+
+-- Inserting more fake data into CreditCard table
+INSERT INTO CreditCard (CustomerID, CardNumber, CardHolderName, ExpirationDate, CVV)
+VALUES
+    (3, '1111222233334444', 'Alice Johnson', '2025-05-01', '789'),
+    (4, '5555666677778888', 'Bob Miller', '2026-08-01', '012');
