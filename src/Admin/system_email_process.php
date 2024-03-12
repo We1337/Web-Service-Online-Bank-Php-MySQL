@@ -31,19 +31,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->SMTPAuth = true;
         $mail->Username = MAIL_NAME; // Replace with your SMTP username
         $mail->Password = MAIL_PASSWORD; // Replace with your SMTP password
-        $mail->SMTPSecure = 'tls';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = MAIL_PORT;
 
-        $mail->setFrom($_SESSION['admin']['email'], $_SESSION['admin']['username']);
         $mail->addAddress($recipient);
-
-        $mail->isHTML(true);
         $mail->Subject = $subject;
         $mail->Body = $message;
 
         // Send the email
-        $mail->send();
-        echo "Email sent successfully!";
+        if($mail->send()) {
+            header("Location: system_email.php");
+        } else {
+            header("Location: system_email.php");
+        }
     } catch (Exception $e) {
         echo "Error: " . $mail->ErrorInfo;
     }
