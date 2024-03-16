@@ -10,7 +10,9 @@ CREATE TABLE `Customers` (
     `State` VARCHAR(50),
     `ZipCode` VARCHAR(10),
     `Country` VARCHAR(50),
-    `RegistrationDate` DATE NOT NULL
+    `RegistrationDate` DATE NOT NULL,
+    `LoginTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `LogoutTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `Deposit` (
@@ -44,26 +46,30 @@ CREATE TABLE `CreditCard` (
     FOREIGN KEY (`CustomerID`) REFERENCES `Customers`(`CustomerID`) ON DELETE CASCADE
 );
 
--- Inserting more fake data into Customers table
+-- Customers
 INSERT INTO Customers (FirstName, LastName, Email, PhoneNumber, Password, Address, City, State, ZipCode, Country, RegistrationDate)
 VALUES
-    ('Alice', 'Johnson', 'alice.johnson@email.com', '111-222-3333', 'pass123', '789 Maple St', 'Villageton', 'Stateland', '67890', 'Countryland', '2022-03-01'),
-    ('Bob', 'Miller', 'bob.miller@email.com', '555-444-3333', 'secret123', '456 Pine St', 'Cityburg', 'Stateland', '45678', 'Countryland', '2022-04-01');
+('John', 'Doe', 'john.doe@example.com', '77470000000', '$2y$10$iwVJovXdgi1Ggc3Y80y/Z.LQa13pP6y.lgoxTDQP50CAfcSg.QRGG', '123 Main St', 'Anytown', 'CA', '12345', 'USA', '2023-01-15'),
+('Jane', 'Smith', 'jane.smith@example.com', '9876543210', 'letmein', '456 Elm St', 'Smallville', 'NY', '54321', 'USA', '2023-02-20'),
+('Alice', 'Johnson', 'alice.johnson@example.com', '5551234567', 'securepassword', '789 Oak St', 'Big City', 'TX', '67890', 'USA', '2023-03-10');
 
--- Inserting more fake data into Deposit table
-INSERT INTO Deposit (CustomerID, Amount)
+-- Deposits
+INSERT INTO Deposit (CustomerID, Amount, DepositDate)
 VALUES
-    (3, 1200.00),
-    (4, 800.75);
+(1, 1000.00, '2024-03-01 08:15:00'),
+(2, 500.00, '2024-03-02 10:30:00'),
+(3, 750.00, '2024-03-03 12:45:00');
 
--- Inserting more fake data into Transfer table
-INSERT INTO Transfer (CustomerID, RecipientID, RecipientName, PhoneNumber, Amount)
+-- Transfers
+INSERT INTO Transfer (CustomerID, RecipientID, RecipientName, PhoneNumber, TransferDate, Amount)
 VALUES
-    (3, 4, 'Bob Miller', '555-444-3333', 300.00),
-    (4, 3, 'Alice Johnson', '111-222-3333', 150.00);
+(1, 2, 'Jane Smith', '9876543210', '2024-03-04 09:00:00', 200.00),
+(2, 3, 'Alice Johnson', '5551234567', '2024-03-05 11:15:00', 300.00),
+(3, 1, 'John Doe', '1234567890', '2024-03-06 13:30:00', 400.00);
 
--- Inserting more fake data into CreditCard table
+-- Credit Cards
 INSERT INTO CreditCard (CustomerID, CardNumber, CardHolderName, ExpirationDate, CVV)
 VALUES
-    (3, '1111222233334444', 'Alice Johnson', '2025-05-01', '789'),
-    (4, '5555666677778888', 'Bob Miller', '2026-08-01', '012');
+(1, '1234567812345678', 'John Doe', '2025-12-01', '123'),
+(2, '8765432187654321', 'Jane Smith', '2026-06-01', '456'),
+(3, '9876543298765432', 'Alice Johnson', '2024-09-01', '789');
