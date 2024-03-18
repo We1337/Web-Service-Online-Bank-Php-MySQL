@@ -5,7 +5,7 @@ require("../Modules/config.php");
 
 if (isset($_SESSION["customer"]["session"]) && $_SESSION["customer"]["session"] === true) {
     header("Location: dashboard.php");
-    exit;
+    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -13,19 +13,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = isset($_POST["password"]) ? htmlspecialchars($_POST["password"]) : "";
 
     if (!is_numeric($phonenumber)) {
-        $_SESSION["messages"][] = ["result" => "Failed", "message" => "Invalid numbers"];
+        $_SESSION["telephone_numeric"] = "Invalid telephone numbers";
         header("Location: login.php");
         exit();
     }
 
     if (empty($phonenumber)) {
-        $_SESSION["messages"][] = ["result"=> "Failed", "message" => "Phone number is empty"];
+        $_SESSION["phonenumber"] = "Telephone number is empty";
         header("Location: login.php");
         exit();
     }
 
     if (empty($password)) {
-        $_SESSION["messages"][] = ["result"=> "Failed", "message"=> "Password is empty"];
+        $_SESSION["password"] = "Password is empty";
         header("Location: login.php");
         exit();
     }
@@ -56,20 +56,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["customer"]["zipcode"] = $result["ZipCode"];
             $_SESSION["customer"]["country"] = $result["Country"];
 
-            $time = $conn->prepare("UPDATE `Customers` SET `LoginTime` = CURRENT_TIMESTAMP WHERE `PhoneNumber` = :phonenumber");
-            $time->bindParam(':phonenumber', $result["PhoneNumber"], PDO::PARAM_STR);
+            $time = $conn->prepare("UPDATE `Customers` SET `LastLogin` = CURRENT_TIMESTAMP WHERE `PhoneNumber` = :phonenumber");
+            $time->bindParam(":phonenumber", $result["PhoneNumber"], PDO::PARAM_STR);
             $time->execute();
 
-            $_SESSION["messages"][] = ["result" => "Success", "message" => "Welcome: " . $result["FirstName"] . ' ' . $result["LastName"]];
+            $_SESSION["messages"][] = ["result" => "Success", "message" => "Hi there " . $result['FirstName'] . ' ' . $result['LastName']];
             header("Location: dashboard.php");
             exit();
         } else {
-            $_SESSION["messages"][] = ["result" => "Failed", "message" => "Invalid password"];
+            $_SESSION["invalid_password"] = "Invalid password";
             header("Location: login.php");
             exit();
         }
     } else {
-        $_SESSION["messages"][] = ["result" => "Failed", "message" => "Invalid phone number"];
+        $_SESSION["invalid_phone_number"] = "Invalid telephone number";
         header("Location: login.php");
         exit();
     }
@@ -136,7 +136,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         </style>
 
-
         <header class="p-3 bg-dark text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -149,24 +148,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
         </header>
-
-        <?php
-        // Display messages if any
-        if (isset($_SESSION['messages']) && !empty($_SESSION['messages'])) {
-            foreach ($_SESSION['messages'] as $message) {
-                // Set alert class based on message result
-                $alertClass = ($message['result'] === 'Success') ? 'alert-success' : 'alert-warning';
-
-                // Display the alert
-                echo "<div class='alert $alertClass alert-dismissible fade show' role='alert'>";
-                echo $message['message'];
-                echo "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
-                echo "</div>";
-            }
-            // Clear the displayed messages
-            unset($_SESSION['messages']);
-        }
-        ?>
 
         <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
             <div class="row gx-lg-5 align-items-center mb-5">
@@ -191,6 +172,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="card-body px-4 py-5 px-md-5">
                             <form method="POST">
                                 <!-- Email input -->
+                                <?php
+                                if (isset($_SESSION['telephone_numeric'])) {
+                                    echo '<p class="alert alert-warning">' . $_SESSION['telephone_numeric'] . '</p>';
+                                } else if (isset($_SESSION['phonenumber'])) {
+                                    echo '<p class="alert alert-warning">' . $_SESSION['phonenumber'] . '</p>';
+                                } else if (isset($_SESSION['invalid_phone_number'])) {
+                                    echo '<p class="alert alert-warning">' . $_SESSION['invalid_phone_number'] . '</p>';
+                                }
+                                ?>
                                 <div class="form-outline mb-4">
                                     <input type="text" id="phonenumber" name="phonenumber" class="form-control"
                                         placeholder="+7XXX-XXX-XXXX" value="<?= '+7' ?>" required>
@@ -198,6 +188,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
 
                                 <!-- Password input -->
+                                <?php
+                                if (isset($_SESSION['password'])) {
+                                    echo '<p class="alert alert-warning">' . $_SESSION['password'] . '</p>';
+                                } else if ($_SESSION['invalid_password']) {
+                                    echo '<p class="alert alert-warning">' . $_SESSION['invalid_password'] . '</p>';
+                                }
+                                ?>
                                 <div class="form-outline mb-4">
                                     <input type="password" id="password" name="password" class="form-control"
                                         placeholder="Password" required>
